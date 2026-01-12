@@ -185,7 +185,7 @@ export default function App() {
           <div className="subtitle">{t('subtitle')} {user && <span style={{ fontSize: '0.8em', opacity: 0.8 }}>— {user.email}</span>}</div>
         </div>
         <div className="headerRight">
-          <button className="btn" onClick={() => {
+          <button className="btn ghost" onClick={() => {
             localStorage.removeItem('token');
             setToken(null);
             window.location.reload();
@@ -348,7 +348,7 @@ function CasesTab({ cases, selectedCaseId, setSelectedCaseId, onCreated, t }: an
                 const c = cases.find((x: Case) => x.id === selectedCaseId);
                 if (c) startEdit(c);
               }}>{t('edit') || 'Edit'}</button>
-              <button className="btn" style={{ color: '#ff6a6a', borderColor: '#ff6a6a' }} onClick={() => deleteCase(selectedCaseId)}>{t('delete') || 'Delete'}</button>
+              <button className="btn danger" onClick={() => deleteCase(selectedCaseId)}>{t('delete') || 'Delete'}</button>
             </>
           )}
         </div>
@@ -409,7 +409,7 @@ function DocumentsTab({ caseId, files, onRefresh, t }: any) {
     <div className="grid">
       <div className="card">
         <div className="cardTitle">{t('upload_document')}</div>
-        <input type="file" onChange={(e) => setDocFile(e.target.files?.[0] || null)} />
+        <input className="fileInput" type="file" onChange={(e) => setDocFile(e.target.files?.[0] || null)} />
         <button
           className="btn primary"
           onClick={async () => {
@@ -435,7 +435,7 @@ function DocumentsTab({ caseId, files, onRefresh, t }: any) {
           </select>
           <button className="btn" onClick={() => loadExtraction().catch(err => alert(err.message))}>{t('refresh')}</button>
           {selectedFileId && (
-            <button className="btn" style={{ color: '#ff6a6a', borderColor: '#ff6a6a' }} onClick={async () => {
+            <button className="btn danger" onClick={async () => {
               if (!confirm(t('confirm_delete') || 'Delete file?')) return;
               try {
                 await api.deleteFile(selectedFileId);
@@ -473,7 +473,7 @@ function LedgersTab({ caseId, parties, imports, onRefresh, t }: any) {
             ))}
           </select>
         </div>
-        <input type="file" accept=".xlsx,.xlsm,.xls" onChange={(e) => setLedgerFile(e.target.files?.[0] || null)} />
+        <input className="fileInput" type="file" accept=".xlsx,.xlsm,.xls" onChange={(e) => setLedgerFile(e.target.files?.[0] || null)} />
         <button
           className="btn primary"
           onClick={async () => {
